@@ -3,7 +3,9 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 void main() {
-  runApp(const MaterialApp());
+  runApp(const MaterialApp(
+    home: Home(),
+  ));
 }
 
 class Home extends StatefulWidget {
@@ -16,6 +18,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   //
   _recuperarBD() async {
+    print("object");
     final caminhoBancoDados = await getDatabasesPath();
     final localBancoDados = join(caminhoBancoDados, "banco.db");
 
@@ -31,8 +34,18 @@ class _HomeState extends State<Home> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _recuperarBD();
+    print("adasdasda");
+  }
+
+  @override
   Widget build(BuildContext context) {
     //chamar as funcoes
+    _recuperarBD();
+    print("adasdasda");
     return const Placeholder();
   }
 }
