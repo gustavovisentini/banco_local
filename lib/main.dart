@@ -37,15 +37,30 @@ class _HomeState extends State<Home> {
   _salvar() async {
     //abrir o db
     Database db = await _recuperarBD();
-    int id = await db.insert("usuarios", {"nome": "Juvencio", "idade": 30});
-    print("Linhas afetadas: $id");
+    int id = await db
+        .insert("usuarios", {"nome": "Serjão dos Foguete", "idade": 540});
+    print("Id Inserido: $id");
+  }
+
+  _recuperarDados() async {
+    Database db = await _recuperarBD();
+    List usuarios = await db.rawQuery('SELECT * FROM usuarios');
+    for (var usuario in usuarios) {
+      print(" id: " +
+          usuario["id"].toString() +
+          " nome: " +
+          usuario["nome"].toString() +
+          " idade: " +
+          usuario["idade"].toString());
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     //chamar as funcoes
     //_recuperarBD();
-    _salvar();
+    //_salvar();
+    _recuperarDados();
     return const Placeholder();
   }
 }
