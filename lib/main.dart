@@ -44,7 +44,11 @@ class _HomeState extends State<Home> {
 
   _recuperarDados() async {
     Database db = await _recuperarBD();
-    List usuarios = await db.rawQuery('SELECT * FROM usuarios');
+    //String sql = 'SELECT * FROM usuarios';
+    //String sql = 'SELECT * FROM usuarios WHERE id = 7';
+    //String sql = 'SELECT * FROM usuarios WHERE idade >=180 AND idade <=1000';
+    String sql = 'SELECT * FROM usuarios ORDER BY idade ASC';
+    List usuarios = await db.rawQuery(sql);
     for (var usuario in usuarios) {
       print(" id: " +
           usuario["id"].toString() +
