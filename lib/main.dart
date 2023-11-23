@@ -87,7 +87,17 @@ class _HomeState extends State<Home> {
     print("linhas afetadas $retorno");
   }
 
-  _atualizarUsuario() async {}
+  _atualizarUsuario(int id) async {
+    Database db = await _recuperarBD();
+    Map<String, dynamic> userData = {"idade": 54};
+    int retorno = await db.update(
+      'usuarios',
+      userData,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+    print("linhas afetadas: $retorno");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +106,9 @@ class _HomeState extends State<Home> {
     //_salvar();
     //_recuperarDados();
     //_recuperarDadosId(3);
-    _deletar(3);
+    //_deletar(3);
+    _recuperarDadosId(8);
+    // _atualizarUsuario(8);
 
     return const Placeholder();
   }
