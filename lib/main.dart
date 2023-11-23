@@ -24,28 +24,28 @@ class _HomeState extends State<Home> {
 
     String sql =
         'CREATE TABLE usuarios(id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR, idade INTEGER)';
-    var retorno = await openDatabase(
+    var db = await openDatabase(
       localBancoDados,
       version: 1,
       onCreate: (db, version) => {db.execute(sql)},
     );
 
-    print("aberto: " + retorno.isOpen.toString());
+    //print("aberto: " + retorno.isOpen.toString());
+    return db;
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _recuperarBD();
-    print("adasdasda");
+  _salvar() async {
+    //abrir o db
+    Database db = await _recuperarBD();
+    int id = await db.insert("usuarios", {"nome": "Juvencio", "idade": 30});
+    print("Linhas afetadas: $id");
   }
 
   @override
   Widget build(BuildContext context) {
     //chamar as funcoes
-    _recuperarBD();
-    print("adasdasda");
+    //_recuperarBD();
+    _salvar();
     return const Placeholder();
   }
 }
