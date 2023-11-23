@@ -59,12 +59,45 @@ class _HomeState extends State<Home> {
     }
   }
 
+  _recuperarDadosId(int id) async {
+    Database db = await _recuperarBD();
+    List usuarios = await db.query(
+      'usuarios',
+      columns: ['id', 'nome', 'idade'],
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+    for (var usuario in usuarios) {
+      print(" id: " +
+          usuario["id"].toString() +
+          " nome: " +
+          usuario["nome"].toString() +
+          " idade: " +
+          usuario["idade"].toString());
+    }
+  }
+
+  _deletar(int id) async {
+    Database db = await _recuperarBD();
+    int retorno = await db.delete(
+      'usuarios',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+    print("linhas afetadas $retorno");
+  }
+
+  _atualizarUsuario() async {}
+
   @override
   Widget build(BuildContext context) {
     //chamar as funcoes
     //_recuperarBD();
     //_salvar();
-    _recuperarDados();
+    //_recuperarDados();
+    //_recuperarDadosId(3);
+    _deletar(3);
+
     return const Placeholder();
   }
 }
